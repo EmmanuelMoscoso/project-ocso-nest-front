@@ -1,28 +1,39 @@
 "use client";
 
 import { API_URL } from "@/app/constants";
-import { Button, Input } from "@heroui/react";
+import { Button, Input, Spinner } from "@heroui/react";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function LoginPage() {
+    const [submitting, setSubmitting] = useState(false)
+    const router = useRouter();
     const handleSubmit = async (e: React.FormEvent) => {
+        setSubmitting(true)
         e.preventDefault();
         const formData = new FormData(e.target)
         let authData: any = {}
         authData.userEmail = formData.get("userEmail")
         authData.userPassword = formData.get("userPassword")
-        const { data } = await axios.post(`${API_URL}/auth/login`, {
+        try {
+            const response = await axios.post(`${API_URL}/auth/login`, {
 
-        ...authData
-        }, {
-            withCredentials: true
+                ...authData
+                }, {
+                    withCredentials: true
+                }
+             )
+             if (response.status === 201) {
+                 router.push("/dashboard")
+             }
+             setSubmitting(false);
+        } catch (e) {
+            setSubmitting(false);
         }
-     )
         return;
-    }
-        
-
+    } 
     return (
         <form className="bg-orange-500 px-10 py-2 rounded-md" onSubmit={handleSubmit}> 
             <p className="text-2xl my-4"> Iniciar sesion</p>
@@ -31,7 +42,7 @@ export default function LoginPage() {
                 <Input label="Contraseña" name="userPassword"type="password" isRequired={true} size="sm"/>
             </div>
                 <div className="flex flex col items center gap-2"> 
-                <Button color="primary" type="submit"> Iniciar sesión </Button>
+                <Button color="primary" type="submit" disabled={submitting}> {submitting ? "Enviando..."  : "Iniciar sesion"} </Button>
                 <p> ¿No tienes cuenta? <Link href="/signup" className="text-red-600 underline"> Registrate </Link></p>
             </div>
         </form>
