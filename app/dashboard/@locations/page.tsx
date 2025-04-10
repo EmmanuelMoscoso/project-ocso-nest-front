@@ -1,4 +1,3 @@
-import axios from "axios";
 import { cookies } from "next/headers";
 import { Location } from "@/app/entities";
 import { API_URL, TOKEN_NAME } from "@/app/constants";
@@ -12,14 +11,18 @@ const LocationsPage = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  let { data } = await axios.get<Location[]>(
+  const response = await fetch(
     `${API_URL}/locations`,
     {
       headers: {
         ...authHeaders()
       },
+      next: {
+        tags: ["dashboard:locations"]
+      }
     },
   );
+  let data: Location[] = await response.json()
   data = [
     {
       locationId: 0,

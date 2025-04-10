@@ -1,19 +1,20 @@
-import axios from "axios";
 import { Employee} from "@/app/entities";
-import { API_URL, TOKEN_NAME } from "@/app/constants";
-import { cookies } from "next/headers";
+import { API_URL } from "@/app/constants";
 import { Card, CardBody, CardHeader, Divider } from "@heroui/react";
+import { authHeaders } from "@/helpers/authHeaders";
 
 export default async function EmployeesLocation ({store} : {store: string | string[] | undefined}) {
-    const token = cookies().get(TOKEN_NAME)?.value;
-    const {data} = await axios.get<Employee[]>(`${API_URL}/employees/location${store}`, {
-        headers: 
-        {
-            Authorization:`Bearer ${token}`
-        }
-    });
-        return (
-            data.map((employee) => {
+    const response = await fetch(`${API_URL}/employees/location/${store}`, {
+        method: "GET",    
+        headers: {
+            ...authHeaders()
+        },
+        next: {
+          tags: ["dashboard:locations:employeees"]
+            }
+        });
+        const data: Employee[] = await response.json()
+        return data?.map((employee: Employee) => {
                 const fullName = employee.employeeLastName + " " + employee.employeeLastName;
                 return (
                     <Card className="mx-10 my-10"> 
@@ -28,5 +29,4 @@ export default async function EmployeesLocation ({store} : {store: string | stri
                     </Card>
                 )
             })
-        )
 }
