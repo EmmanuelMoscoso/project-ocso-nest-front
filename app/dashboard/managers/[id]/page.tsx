@@ -4,6 +4,8 @@ import { API_URL } from "@/app/constants";
  import ManagerCard from "../_components/ManagerCard";
  import DeleteManagerButton from "../_components/DeleteManagerButton";
  import { Suspense } from "react";
+ import FormUpdateManager from "../_components/FormUpdateManager";
+ import UpdateManager from "../_components/UpdateManager";
  export default async function ManagerPage({
    params,
  }: {
@@ -24,6 +26,9 @@ import { API_URL } from "@/app/constants";
       <div className="flex flex-col gap-10 flex-grow-0 items-center justify-center">
         <ManagerCard manager={data} />
         <div className="bg-white shadow-medium rounded-md px-10 py-2">
+          <UpdateManager>
+            <FormUpdateManager manager={data} />
+         </UpdateManager>
          <DeleteManagerButton managerId={data.managerId} />
        </div>
       </div>
