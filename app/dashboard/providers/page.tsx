@@ -10,6 +10,9 @@ import { API_URL } from "@/app/constants";
      headers: {
        ...authHeaders(),
      },
+     next: {
+      tags: ["dashboard:providers"]
+    }
    });
    const providers: Provider[] = await response.json();
  
