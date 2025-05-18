@@ -1,6 +1,11 @@
 import { Card, CardHeader, Divider, CardBody } from "@heroui/react";
- import { Manager } from "@/app/entities";
- import Link from "next/link";
+import { Manager } from "@/app/entities";
+import Link from "next/link";
+import ModalGeneric from "@/app/dashboard/_components/ModalGeneric";
+import FormUpdateUser from "../[id]/_components/FormUpdateUser"
+import { LuPlus } from "react-icons/lu";
+import FormCreateUserManager from "../[id]/_components/FormCreateUser";
+
  export default function ManagerCard({ manager }: { manager: Manager }) {
    return (
      <Card className="mx-20 py-2 text-center">
