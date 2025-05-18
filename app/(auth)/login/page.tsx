@@ -3,7 +3,7 @@
 import { API_URL } from "@/app/constants";
 import { Button, Input } from "@heroui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {

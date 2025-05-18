@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { TOKEN_NAME } from "@/app/constants";
 
 export default function MiddleWare(req: NextRequest) {
     const token = req.cookies.get(TOKEN_NAME)?.value;
