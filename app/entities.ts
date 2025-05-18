@@ -16,7 +16,7 @@ export interface Employee {
     employeeEmail: string;
     employeePhoto: string;
     location?: Location;
-    user?: any;
+    user?: User;
 }
 
 export interface Manager {
@@ -26,7 +26,7 @@ export interface Manager {
     managerEmail: string;
     managerPhoneNumber: string;
     location: Location;
-    user: any;
+    user: User;
   }
 
   export interface Provider {
@@ -44,3 +44,11 @@ export interface Manager {
     countSeal: number;
     provider: Provider
   }
+
+  export interface User{
+  userEmail: string;
+  userPassword: string;
+  userRoles: string[];
+  manager: Manager;
+  employee: Employee;
+}
