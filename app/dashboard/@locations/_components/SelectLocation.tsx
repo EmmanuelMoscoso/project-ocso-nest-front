@@ -23,7 +23,7 @@ export default function SelectLocation({locations, store}: {locations: Location[
      >
        {locations.map((location: Location) => {
          return (
-           <SelectItem key={location.locationId} value={location.locationId}>
+           <SelectItem key={location.locationId}>
              {location.locationName}
            </SelectItem>
          );
